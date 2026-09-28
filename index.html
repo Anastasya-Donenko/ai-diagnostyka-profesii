@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI-діагностика вашої професії · AI-MONEY CLUB</title>
+<meta name="description" content="Бонус AI-MONEY CLUB: дайте відповідь на 5 питань і отримайте персональну карту впровадження AI саме у вашу роботу.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#03080a; --bg2:#061013; --panel:#0a171b; --panel2:#0e1f24; --line:#16333a; --line2:#1f4a52;
+  --ink:#eafcff; --muted:#86a6ac; --teal:#19f0d4; --cyan:#22d3ee; --teal-d:#0fb7a2;
+  --glow:0 0 24px rgba(25,240,212,.45); --r:22px;
+  --grad:linear-gradient(100deg,#19f0d4 0%,#2ee6c8 60%,#5eead4 100%);
+  --gold:#f2c14e; --gold2:#ffe39a; --gold3:#c8912a;
+  --grad-gold:linear-gradient(100deg,#c8912a 0%,#f2c14e 45%,#ffe7a3 100%);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden}
+a{color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.line{display:block}
+.nw{white-space:nowrap}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gold-t{background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent}
+h1,h2,h3{font-family:Unbounded,Manrope,sans-serif;letter-spacing:-.01em;margin:0;text-wrap:balance}
+p,li{text-wrap:pretty}
+
+/* ---------- фон ---------- */
+.bg-fx{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.bg-fx .grid{position:absolute;inset:-50%;background-image:
+  linear-gradient(rgba(34,211,238,.06) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(34,211,238,.06) 1px,transparent 1px);
+  background-size:56px 56px;transform:perspective(700px) rotateX(58deg) translateY(-8%);
+  animation:gridMove 18s linear infinite;mask-image:radial-gradient(ellipse at 50% 30%,#000 10%,transparent 60%)}
+@keyframes gridMove{to{background-position:0 560px}}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.38;animation:float 16s ease-in-out infinite}
+.orb.o1{width:520px;height:520px;background:#0b8f86;top:-160px;left:-140px}
+.orb.o2{width:460px;height:460px;background:#0b4f4a;top:30%;right:-180px;animation-delay:-5s}
+.orb.o3{width:380px;height:380px;background:#0a6b62;bottom:-160px;left:30%;animation-delay:-10s;opacity:.35}
+.orb.o4{width:340px;height:340px;background:#b8861f;top:8%;right:12%;opacity:.22;animation-delay:-7s;animation-duration:20s}
+.beam{position:absolute;top:-20%;left:-30%;width:28%;height:140%;transform:rotate(18deg);
+  background:linear-gradient(90deg,transparent,rgba(242,193,78,.07),rgba(25,240,212,.08),transparent);animation:beam 11s ease-in-out infinite}
+@keyframes beam{0%{left:-35%}60%,100%{left:120%}}
+.spark{position:absolute;bottom:-10px;width:4px;height:4px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal);
+  opacity:0;animation:rise linear infinite}
+.spark.g{background:var(--gold);box-shadow:0 0 12px var(--gold)}
+@keyframes rise{0%{transform:translate(0,0);opacity:0}10%{opacity:.9}80%{opacity:.6}100%{transform:translate(var(--dx),-105vh);opacity:0}}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-50px)}}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .5s ease-out,transform .5s ease-out}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.04s}.rv.d2{transition-delay:.08s}.rv.d3{transition-delay:.12s}.rv.d4{transition-delay:.16s}
+
+/* ---------- кнопки / бейджі ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;cursor:pointer;
+  font:800 15px/1 Manrope,sans-serif;text-decoration:none;padding:17px 30px;border-radius:14px;
+  text-transform:uppercase;letter-spacing:.04em;transition:transform .2s,box-shadow .2s,background .2s,opacity .2s}
+.btn-main{background:var(--grad);color:#021214;box-shadow:0 10px 40px -10px rgba(25,240,212,.7)}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 16px 50px -8px rgba(25,240,212,.9)}
+.btn-ghost{background:rgba(25,240,212,.06);color:var(--teal);border:1.5px solid var(--line2)}
+.btn-ghost:hover{border-color:var(--teal);box-shadow:var(--glow)}
+.btn-gold{background:var(--grad-gold);color:#1a1204;box-shadow:0 10px 40px -10px rgba(242,193,78,.7)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 16px 50px -8px rgba(242,193,78,.9)}
+.btn[disabled]{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.chip{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--teal);padding:8px 16px;border:1px solid var(--line2);border-radius:40px;
+  background:rgba(25,240,212,.05)}
+.chip i{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:var(--glow);animation:pulse 1.8s infinite}
+.chip.gold{color:var(--gold);border-color:rgba(242,193,78,.35);background:rgba(242,193,78,.07)}
+.chip.gold i{background:var(--gold);box-shadow:0 0 18px rgba(242,193,78,.6)}
+@keyframes pulse{50%{opacity:.3}}
+
+/* ---------- hero ---------- */
+.hero{padding:70px 0 40px;position:relative;overflow-x:clip}
+.hero-in{display:grid;grid-template-columns:1.08fr .92fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(32px,5vw,62px);line-height:1.08;font-weight:900;text-transform:uppercase;margin:22px 0 0}
+.hero h1 .ai{display:inline-block;padding:0 .14em;margin:0 .02em;border:2px solid rgba(242,193,78,.55);border-radius:.2em;
+  background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent;
+  box-shadow:0 0 30px -6px rgba(242,193,78,.6),inset 0 0 22px -8px rgba(242,193,78,.5);animation:aiGlow 3s ease-in-out infinite}
+@keyframes aiGlow{50%{box-shadow:0 0 44px -4px rgba(242,193,78,.85),inset 0 0 26px -6px rgba(242,193,78,.7)}}
+.hero h1 .shine{display:block;background:linear-gradient(100deg,#19f0d4 0%,#5eead4 30%,#ffe39a 48%,#f2c14e 52%,#5eead4 70%,#19f0d4 100%);
+  background-size:250% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite;
+  filter:drop-shadow(0 0 22px rgba(25,240,212,.25))}
+@keyframes shine{to{background-position:-250% center}}
+.hero h1 .bar{display:block;width:120px;height:4px;margin-top:22px;border-radius:4px;background:var(--grad-gold);box-shadow:0 0 18px rgba(242,193,78,.7)}
+.hero .sub{font-family:Unbounded;font-weight:700;font-size:clamp(15px,1.7vw,20px);margin:22px 0 0;color:#cdf7fa}
+.hero .sub b{color:var(--gold)}
+.hero .lead{color:var(--muted);font-size:17px;max-width:54ch;margin:16px 0 30px}
+.hero .cta{display:flex;flex-wrap:wrap;gap:14px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:54px}
+.stat{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:18px;
+  padding:20px 18px;text-align:center;position:relative;overflow:hidden}
+.stat::after{content:"";position:absolute;left:20%;right:20%;bottom:0;height:2px;background:var(--grad);box-shadow:var(--glow)}
+.stat.money b{color:var(--gold)}
+.stat.money::after{background:var(--grad-gold);box-shadow:0 0 18px rgba(242,193,78,.5)}
+.stat b{display:block;font-family:Unbounded;font-size:clamp(24px,3vw,34px);font-weight:800;white-space:nowrap}
+.stat span{font-size:13px;color:var(--muted);font-weight:600}
+
+/* hero visual: чат */
+.chat{position:relative;background:linear-gradient(180deg,rgba(14,31,36,.92),rgba(10,23,27,.92));border:1px solid var(--line2);
+  border-radius:26px;padding:22px;box-shadow:0 30px 80px -30px rgba(25,240,212,.35),inset 0 1px 0 rgba(255,255,255,.04)}
+.chat::before{content:"";position:absolute;inset:-1px;border-radius:26px;padding:1px;background:linear-gradient(140deg,rgba(25,240,212,.6),transparent 40%,transparent 60%,rgba(242,193,78,.5));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.chat-top{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);font-weight:700;margin-bottom:18px}
+.chat-top .dot{width:30px;height:30px;border-radius:10px;background:var(--grad);display:grid;place-items:center;color:#021214;font-weight:900;font-size:14px}
+.bub{border-radius:18px;padding:14px 16px;font-size:14px;margin-bottom:12px;max-width:92%}
+.bub.me{margin-left:auto;background:rgba(25,240,212,.1);border:1px solid var(--line2);color:#cdf7fa}
+.bub.ai{background:rgba(255,255,255,.03);border:1px solid var(--line)}
+.bub.ai .row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);opacity:0;transform:translateX(-8px);animation:rowIn .5s forwards}
+.bub.ai .row:last-child{border-bottom:0}
+.bub.ai .row b{color:var(--teal);white-space:nowrap}
+.bub.ai .row b.g{color:var(--gold)}
+.bub.ai .row:nth-child(2){animation-delay:.5s}.bub.ai .row:nth-child(3){animation-delay:1s}.bub.ai .row:nth-child(4){animation-delay:1.5s}.bub.ai .row:nth-child(5){animation-delay:2s}
+@keyframes rowIn{to{opacity:1;transform:none}}
+.bub.ai h4{margin:0 0 4px;font:700 13px Unbounded;color:var(--ink)}
+
+/* ---------- секції ---------- */
+section{padding:90px 0 0}
+.sec-h{max-width:760px;margin-bottom:38px}
+.sec-h h2{font-size:clamp(26px,3.6vw,44px);text-transform:uppercase;font-weight:900;line-height:1.08;margin-top:18px}
+.sec-h p{color:var(--muted);font-size:17px;margin:16px 0 0}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.how-i{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:var(--r);padding:26px}
+.how-i .n{font:900 34px Unbounded;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:.9}
+.how-i h3{font-size:18px;margin:12px 0 8px}
+.how-i p{color:var(--muted);margin:0;font-size:15px}
+
+/* ---------- конструктор ---------- */
+.builder{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:start}
+.card{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:26px;padding:28px}
+.presets-t{font-size:13px;color:var(--muted);font-weight:700;margin:0 0 10px}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{font:700 13px Manrope;color:#cdf7fa;background:rgba(25,240,212,.05);border:1px solid var(--line2);border-radius:40px;padding:9px 14px;cursor:pointer;transition:.2s}
+.pill:hover{border-color:var(--teal)}
+.pill.on{background:var(--grad);color:#021214;border-color:transparent}
+.q{margin-top:26px}
+.q label,.q .lbl{display:flex;gap:10px;align-items:baseline;font:700 15px Unbounded;margin-bottom:10px}
+.q label span,.q .lbl span{color:var(--teal);font-size:12px}
+.q small{display:block;color:var(--muted);font:500 13px Manrope;margin:-4px 0 10px}
+input[type=text],textarea{width:100%;background:rgba(3,8,10,.6);border:1.5px solid var(--line2);border-radius:14px;color:var(--ink);
+  font:500 16px/1.5 Manrope,sans-serif;padding:14px 16px;outline:none;transition:border-color .2s,box-shadow .2s;resize:vertical}
+textarea{min-height:96px}
+input[type=text]:focus,textarea:focus{border-color:var(--teal);box-shadow:0 0 0 4px rgba(25,240,212,.12)}
+::placeholder{color:rgba(134,166,172,.42);font-style:italic}
+.out{position:sticky;top:20px}
+.out h3{font-size:18px;display:flex;align-items:center;gap:10px}
+.out .hint{color:var(--muted);font-size:14px;margin:8px 0 16px}
+.prompt{background:rgba(3,8,10,.7);border:1px solid var(--line);border-radius:16px;padding:18px;font-size:13.5px;line-height:1.6;
+  white-space:pre-wrap;max-height:430px;overflow:auto;color:#b9d6db}
+.prompt mark{background:rgba(25,240,212,.14);color:var(--teal);border-radius:4px;padding:0 3px}
+.prompt mark.hint{background:transparent;color:rgba(25,240,212,.5);border-bottom:1px dashed rgba(25,240,212,.35);border-radius:0}
+.prompt mark.empty{background:rgba(242,193,78,.12);color:var(--gold)}
+.acts{display:grid;gap:10px;margin-top:16px}
+.acts .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.acts .btn{padding:15px 16px;font-size:13px;width:100%}
+.warn{font-size:13px;color:var(--gold);margin-top:10px;min-height:1.2em}
+.note{font-size:13px;color:var(--muted);margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
+
+/* ---------- що отримаєте ---------- */
+.gets{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.get{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:var(--r);padding:24px;position:relative;overflow:hidden}
+.get .ic{font-size:28px}
+.get h3{font-size:16px;margin:12px 0 8px}
+.get p{margin:0;color:var(--muted);font-size:14.5px}
+.get.gold{border-color:rgba(242,193,78,.35)}
+.get.gold h3{color:var(--gold2)}
+
+/* ---------- фінал ---------- */
+.final{margin:90px 0 60px;border-radius:32px;padding:56px 30px;text-align:center;position:relative;overflow:hidden;
+  background:radial-gradient(ellipse at 50% 0%,rgba(242,193,78,.16),transparent 60%),linear-gradient(180deg,var(--panel2),var(--panel));
+  border:1px solid rgba(242,193,78,.3);box-shadow:inset 0 1px 0 rgba(242,193,78,.35)}
+.final h2{font-size:clamp(24px,3.6vw,42px);text-transform:uppercase;font-weight:900;line-height:1.1;margin-top:18px}
+.final p{color:var(--muted);font-size:17px;max-width:60ch;margin:18px auto 28px}
+.final ul{list-style:none;padding:0;margin:0 auto 30px;max-width:620px;display:grid;gap:10px;text-align:left}
+.final li{background:rgba(3,8,10,.45);border:1px solid var(--line);border-radius:14px;padding:12px 16px;font-size:15px}
+.final li b{color:var(--gold2)}
+.foot{text-align:center;color:var(--muted);font-size:13px;padding:0 0 40px}
+
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,30px);opacity:0;background:var(--grad);color:#021214;
+  font-weight:800;padding:13px 22px;border-radius:40px;box-shadow:0 10px 40px -8px rgba(25,240,212,.8);transition:.3s;z-index:50;pointer-events:none;text-align:center;max-width:calc(100% - 32px)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ноутбук / десктоп: перший екран вміщується у висоту вікна */
+@media (min-width:981px){
+  .hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+    padding:clamp(20px,4vh,56px) 0 clamp(18px,3.5vh,44px)}
+  .hero-in{grid-template-columns:1.22fr .78fr;gap:clamp(28px,3vw,48px)}
+  .hero h1{font-size:clamp(30px,min(4.1vw,7.4vh),58px);margin-top:clamp(10px,2.2vh,22px)}
+  .hero h1 .bar{margin-top:clamp(10px,2.2vh,22px)}
+  .hero .sub{margin-top:clamp(10px,2.2vh,22px)}
+  .hero .lead{font-size:clamp(15px,2.2vh,17px);max-width:60ch;margin:clamp(8px,1.6vh,16px) 0 clamp(16px,3.2vh,30px)}
+  .hero .cta .btn{padding:clamp(13px,2vh,17px) 28px}
+  .stats{margin-top:clamp(18px,4.5vh,54px)}
+  .stat{padding:clamp(10px,2vh,20px) 16px}
+  .stat b{font-size:clamp(22px,4vh,34px)}
+  .chat{padding:clamp(16px,2.4vh,22px)}
+  .bub{padding:clamp(10px,1.6vh,14px) 16px;margin-bottom:clamp(8px,1.4vh,12px)}
+  .bub.ai .row{padding:clamp(5px,.9vh,8px) 0}
+}
+@media (max-width:980px){
+  .hero-in,.builder{grid-template-columns:1fr}
+  .out{position:static}
+  .chat{max-width:520px}
+}
+@media (max-width:720px){
+  .wrap{padding:0 16px}
+  .hero{padding:44px 0 20px}
+  .stats{grid-template-columns:repeat(2,1fr);margin-top:36px}
+  .how,.gets{grid-template-columns:1fr}
+  section{padding-top:64px}
+  .card{padding:20px;border-radius:22px}
+  .hero .cta .btn{width:100%}
+  .acts .two{grid-template-columns:1fr}
+  .final{padding:40px 18px;border-radius:24px}
+  .final .btn{width:100%}
+  .bg-fx .grid,.orb{animation:none}
+  .orb{filter:blur(70px)}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.bub.ai .row{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="bg-fx"><div class="grid"></div><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="orb o4"></div><div class="beam"></div><div id="sparks"></div></div>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="wrap hero-in">
+    <div>
+      <span class="chip gold rv"><i></i>Бонус AI-MONEY CLUB</span>
+      <h1 class="rv d1">Що <span class="ai">AI</span> зробить <span class="shine">для вашої професії</span><span class="bar"></span></h1>
+      <p class="sub rv d2">5 питань → <b>персональна карта</b>, як AI змінить саме вашу роботу</p>
+      <p class="lead rv d3">Вчитель, бухгалтер, майстер манікюру чи власник кав'ярні — неважливо. Ви розповідаєте, чим займаєтесь, а AI показує, що можна автоматизувати, скільки годин це звільнить і де з'являться нові гроші.</p>
+      <div class="cta rv d4">
+        <a href="#start" class="btn btn-gold">Пройти діагностику ↓</a>
+        <a href="#get" class="btn btn-ghost">Що я отримаю</a>
+      </div>
+    </div>
+    <div class="chat rv d2" aria-hidden="true">
+      <div class="chat-top"><span class="dot">AI</span>Ваша карта впровадження</div>
+      <div class="bub me">Я вчитель у школі. Перевіряю зошити, готую уроки, пишу звіти, відповідаю батькам у Viber…</div>
+      <div class="bub ai">
+        <h4>Що AI забере на себе:</h4>
+        <div class="row"><span>Плани уроків і презентації</span><b>−4 год/тиж</b></div>
+        <div class="row"><span>Тести й завдання під рівень класу</span><b>−3 год/тиж</b></div>
+        <div class="row"><span>Звіти та відповіді батькам</span><b>−2 год/тиж</b></div>
+        <div class="row"><span>Репетиторство онлайн з AI-матеріалами</span><b class="g">+8 000 ₴/міс</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat rv"><b data-count="5">0</b><span>простих питань</span></div>
+      <div class="stat rv d1"><b data-count="3" data-suf="&nbsp;хв">0</b><span>на заповнення</span></div>
+      <div class="stat rv d2"><b data-count="7" data-suf="+">0</b><span>сценаріїв AI для вас</span></div>
+      <div class="stat money rv d3"><b data-count="0" data-suf="&nbsp;₴">0</b><span>коштує діагностика</span></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ================= ЯК ЦЕ ПРАЦЮЄ ================= -->
+<section id="how">
+  <div class="sec-h rv">
+    <span class="chip"><i></i>Як це працює</span>
+    <h2>Три кроки <span class="grad">без дзвінків</span></h2>
+    <p>Не треба нікуди записуватись і нічого встановлювати. Потрібен лише ChatGPT або Claude, підійде навіть безкоштовна версія.</p>
+  </div>
+  <div class="how">
+    <div class="how-i rv"><div class="n">01</div><h3>Розкажіть про себе</h3><p>Оберіть професію зі списку або опишіть своїми словами: чим займаєтесь і що забирає найбільше часу.</p></div>
+    <div class="how-i rv d1"><div class="n">02</div><h3>Отримайте промпт</h3><p>Сторінка сама збере з ваших відповідей персональний промпт. Вам лишається натиснути одну кнопку.</p></div>
+    <div class="how-i rv d2"><div class="n">03</div><h3>Вставте в AI</h3><p>ChatGPT або Claude відкриється з вашим запитом. За хвилину ви отримаєте карту впровадження AI саме для вашої роботи.</p></div>
+  </div>
+</section>
+
+<!-- ================= КОНСТРУКТОР ================= -->
+<section id="start">
+  <div class="sec-h rv">
+    <span class="chip gold"><i></i>Діагностика</span>
+    <h2>Розкажіть, <span class="grad">чим ви займаєтесь</span></h2>
+    <p>Чим конкретніше ви опишете свій день, тим точнішою буде відповідь. Пишіть просто, як другу.</p>
+  </div>
+
+  <div class="builder">
+    <div class="card rv">
+      <p class="presets-t">Швидкий старт: оберіть схожу професію, у полях з'являться підказки. Перепишіть їх під себе або залиште як є</p>
+      <div class="pills" id="presets"></div>
+
+      <div class="q">
+        <label for="role"><span>01</span>Ким ви працюєте?</label>
+        <input type="text" id="role" placeholder="Наприклад: вчитель англійської в школі, 8 років досвіду" autocomplete="off">
+      </div>
+      <div class="q">
+        <label for="day"><span>02</span>Як виглядає ваш робочий день?</label>
+        <small>Які задачі ви робите щодня або щотижня</small>
+        <textarea id="day" placeholder="Готую уроки, перевіряю зошити, заповнюю журнал, спілкуюсь з батьками…"></textarea>
+      </div>
+      <div class="q">
+        <label for="pain"><span>03</span>Що забирає найбільше часу або дратує?</label>
+        <textarea id="pain" placeholder="Перевірка домашніх завдань забирає вечори, звіти пишу у вихідні…"></textarea>
+      </div>
+      <div class="q">
+        <div class="lbl"><span>04</span>Чого хочете досягти?</div>
+        <small>Можна обрати кілька</small>
+        <div class="pills" id="goals"></div>
+      </div>
+      <div class="q">
+        <div class="lbl"><span>05</span>Ваш досвід з AI</div>
+        <div class="pills" id="exp"></div>
+      </div>
+    </div>
+
+    <div class="card out rv d1">
+      <h3>✦ Ваш персональний промпт</h3>
+      <p class="hint">Оновлюється, поки ви заповнюєте. Бірюзовим підсвічено ваші відповіді, напівпрозорим — підказки.</p>
+      <div class="prompt" id="prompt"></div>
+      <div class="acts">
+        <button class="btn btn-main" id="copy">Скопіювати промпт</button>
+        <div class="two">
+          <button class="btn btn-ghost" data-open="https://chatgpt.com/?q=">Відкрити в ChatGPT ↗</button>
+          <button class="btn btn-ghost" data-open="https://claude.ai/new?q=">Відкрити в Claude ↗</button>
+        </div>
+      </div>
+      <div class="warn" id="warn"></div>
+      <div class="note">Кнопки «Відкрити» одразу вставляють промпт у чат. Якщо він не з'явився, натисніть у полі чату і вставте текст: він уже скопійований.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ЩО ОТРИМАЄТЕ ================= -->
+<section id="get">
+  <div class="sec-h rv">
+    <span class="chip"><i></i>Результат</span>
+    <h2>Що покаже <span class="grad">ваша карта AI</span></h2>
+    <p>Це не загальні поради «AI допоможе всім». Кожен пункт буде про вашу професію і ваш день.</p>
+  </div>
+  <div class="gets">
+    <div class="get rv"><div class="ic">🔍</div><h3>Де ви втрачаєте час</h3><p>3–5 «дірок» у вашій роботі, куди йдуть години й сили.</p></div>
+    <div class="get rv d1"><div class="ic">🤖</div><h3>7 сценаріїв з AI</h3><p>Що саме робить AI, яким інструментом і скільки часу це звільняє.</p></div>
+    <div class="get gold rv d2"><div class="ic">💰</div><h3>Нові гроші</h3><p>2–3 ідеї, як заробляти більше у своїй ніші завдяки AI, з орієнтовним чеком.</p></div>
+    <div class="get rv"><div class="ic">📊</div><h3>Було → стало</h3><p>Таблиця з годинами, доходом і якістю до та після впровадження.</p></div>
+    <div class="get rv d1"><div class="ic">⚡</div><h3>Спробуйте за 5 хвилин</h3><p>Готовий промпт з вашими даними, щоб відчути ефект одразу.</p></div>
+    <div class="get rv d2"><div class="ic">🗓</div><h3>План на 7 днів</h3><p>По одному маленькому кроку на день і список навичок, які варто прокачати.</p></div>
+  </div>
+</section>
+
+<!-- ================= ФІНАЛ ================= -->
+<div class="final rv">
+  <span class="chip gold"><i></i>AI-MONEY CLUB</span>
+  <h2>AI показав, <span class="gold-t">що можливо.</span><br><span class="grad">У клубі покажемо, як</span></h2>
+  <p>Карта — це початок. Щоб AI справді звільнив години й приніс нові гроші, потрібні навички, готові шаблони й люди поруч, які вже пройшли цей шлях.</p>
+  <ul>
+    <li><b>Щотижня</b> нові AI-інструменти, промпти й розбори під реальні задачі</li>
+    <li><b>Покрокові навчання</b> навичкам, які AI назвав у вашій карті</li>
+    <li><b>Спільнота й підтримка:</b> ставите питання й отримуєте відповідь</li>
+  </ul>
+  <a class="btn btn-gold" href="https://edtech-stars.com/club_money?utm_source=bonus_ai_diagnostyka" target="_blank" rel="noopener">Приєднатися до клубу →</a>
+</div>
+<div class="foot">© AI-MONEY CLUB · Бонус «AI-діагностика вашої професії»</div>
+</main>
+
+<div class="toast" id="toast">Промпт скопійовано ✦</div>
+
+<script>
+const PRESETS = [
+  {n:"👩‍🏫 Вчитель", role:"Вчитель у загальноосвітній школі", day:"Готую плани уроків і презентації, перевіряю зошити й контрольні, заповнюю електронний журнал, пишу звіти, спілкуюсь з батьками у Viber, готую дітей до олімпіад.", pain:"Перевірка робіт і підготовка до уроків забирають вечори й вихідні, багато паперової звітності."},
+  {n:"📚 Репетитор", role:"Репетитор (онлайн і офлайн заняття)", day:"Проводжу індивідуальні заняття, підбираю завдання під рівень учня, перевіряю домашні, шукаю нових учнів, домовляюсь про розклад і оплату.", pain:"Довго готую матеріали під кожного учня, нестабільний потік нових клієнтів."},
+  {n:"🧮 Бухгалтер", role:"Бухгалтер (веду облік кількох ФОП і ТОВ)", day:"Обробляю первинні документи, звіряю виписки, готую звітність, консультую клієнтів щодо податків, відповідаю на однакові питання.", pain:"Рутинна звірка й перенесення даних, постійні однакові питання від клієнтів."},
+  {n:"💅 Б'юті-майстер", role:"Майстер манікюру (працюю в салоні й приватно)", day:"Приймаю клієнтів, веду запис у месенджерах, знімаю роботи для Instagram, пишу пости, відповідаю на питання про ціни.", pain:"Листування із записом і ведення Instagram забирають час між клієнтами, немає ідей для контенту."},
+  {n:"🧠 Психолог", role:"Практичний психолог (приватна практика онлайн)", day:"Проводжу консультації, веду нотатки після сесій, пишу пости й сторіз, відповідаю на заявки, створюю матеріали для клієнтів.", pain:"Нестабільний потік клієнтів, довго пишу контент, нотатки після сесій забирають час."},
+  {n:"🏠 Ріелтор", role:"Ріелтор (продаж і оренда квартир)", day:"Шукаю об'єкти, фотографую й пишу оголошення, відповідаю на дзвінки, проводжу покази, веду переговори, оформлюю документи.", pain:"Написання оголошень, однакові питання від покупців і багато «холодних» переглядів."},
+  {n:"☕ Власник кав'ярні", role:"Власник невеликої кав'ярні", day:"Закуповую продукти, складаю графік персоналу, веду Instagram, рахую собівартість, відповідаю на відгуки, придумую акції.", pain:"Не вистачає часу на маркетинг, складно рахувати економіку й планувати закупівлі."},
+  {n:"🛒 Менеджер з продажу", role:"Менеджер з продажу в B2B-компанії", day:"Шукаю клієнтів, пишу листи й комерційні пропозиції, проводжу дзвінки, веду CRM, готую звіти для керівника.", pain:"Багато ручного листування й звітів, мало часу на самі продажі."},
+  {n:"🏋️ Фітнес-тренер", role:"Фітнес-тренер (зал і онлайн-ведення)", day:"Проводжу тренування, складаю програми й харчування, веду клієнтів у месенджерах, знімаю контент для соцмереж.", pain:"Складання індивідуальних програм і відповіді клієнтам займають багато часу."},
+  {n:"📱 SMM-спеціаліст", role:"SMM-спеціаліст (веду кілька брендів)", day:"Складаю контент-план, пишу пости, роблю візуали, аналізую статистику, спілкуюсь із клієнтами, запускаю рекламу.", pain:"Постійний дедлайн на тексти й ідеї, звіти для клієнтів робляться вручну."},
+  {n:"🗂 Офіс / адміністратор", role:"Офіс-менеджер / адміністратор", day:"Відповідаю на листи й дзвінки, веду таблиці й документи, організовую зустрічі, готую звіти, координую замовлення.", pain:"Багато однотипних листів, таблиць і документів, які роблю вручну."}
+];
+const GOALS = ["Звільнити час","Заробляти більше","Знайти нових клієнтів","Менше рутини","Нове джерело доходу на AI","Бути сучасним фахівцем"];
+const EXPS = ["Ще не пробую","Іноді користуюсь ChatGPT","Користуюсь регулярно"];
+
+const $ = s => document.querySelector(s);
+const role=$("#role"), day=$("#day"), pain=$("#pain"), out=$("#prompt"), warn=$("#warn");
+const goalsSel=new Set(); let expSel="", hint=null;
+
+function pills(el, list, onClick){
+  list.forEach(t=>{const b=document.createElement("button");b.type="button";b.className="pill";b.textContent=t;
+    b.onclick=()=>onClick(b,t);el.appendChild(b);});
+}
+pills($("#presets"), PRESETS.map(p=>p.n), (b,t)=>{
+  const p=PRESETS.find(x=>x.n===t);
+  document.querySelectorAll("#presets .pill").forEach(x=>x.classList.toggle("on",x===b));
+  hint=p; role.placeholder=p.role; day.placeholder=p.day; pain.placeholder=p.pain; render();
+});
+pills($("#goals"), GOALS, (b,t)=>{goalsSel.has(t)?goalsSel.delete(t):goalsSel.add(t);b.classList.toggle("on");render();});
+pills($("#exp"), EXPS, (b,t)=>{expSel=t;document.querySelectorAll("#exp .pill").forEach(x=>x.classList.toggle("on",x===b));render();});
+
+function build(mark){
+  const esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+  const v=(val,ph,k)=>{val=val.trim();const h=k&&hint?hint[k]:"";
+    if(!mark) return val||h||ph;
+    return val?`<mark>${esc(val)}</mark>`:h?`<mark class="hint">${esc(h)}</mark>`:`<mark class="empty">${ph}</mark>`;};
+  const goals=[...goalsSel].join(", ");
+  return `Ти — експерт із впровадження штучного інтелекту в роботу звичайних людей і малого бізнесу. Пояснюй просто, без технічного жаргону, ніби говориш з людиною, яка тільки знайомиться з AI.
+
+Про мене:
+— Професія: ${v(role.value,"[ким ви працюєте]","role")}
+— Мій звичайний робочий день: ${v(day.value,"[ваші щоденні задачі]","day")}
+— Що забирає найбільше часу або дратує: ${v(pain.value,"[що забирає час]","pain")}
+— Чого хочу досягти: ${v(goals,"[ваша мета]")}
+— Мій досвід з AI: ${v(expSel,"[ваш досвід]")}
+
+Зроби для мене персональну карту впровадження AI. Структура відповіді:
+
+1. 🔍 Де я зараз втрачаю час і гроші: 3–5 пунктів саме з моєї роботи.
+2. 🤖 7 конкретних способів використати AI у моїй роботі. Для кожного: що саме робить AI, яким інструментом (ChatGPT, Claude, Gemini тощо), скільки годин на тиждень це економить і приклад з мого дня.
+3. 💰 Нові можливості заробітку: 2–3 ідеї, як завдяки AI я можу заробляти більше або запустити нову послугу у своїй ніші, з орієнтовним чеком.
+4. 📊 Очікуваний результат: таблиця «було → стало» (години на тиждень, дохід, якість роботи).
+5. ⚡ Спробуй зараз: один готовий промпт з моїми даними, який я можу вставити в цей чат і за 5 хвилин отримати реальну користь.
+6. 🗓 План на 7 днів: по одному маленькому кроку на день.
+7. 🧠 Які навички мені потрібно прокачати, щоб впровадити все це системно, і з чого почати.
+
+Пиши українською, конкретно, з прикладами з моєї професії, без загальних фраз. Наприкінці запитай, який пункт розібрати детальніше.`;
+}
+function render(){ out.innerHTML=build(true); warn.textContent=""; }
+[role,day,pain].forEach(el=>el.addEventListener("input",render));
+render();
+
+/* іскри на фоні */
+(()=>{const box=document.getElementById("sparks");const n=innerWidth<720?14:30;
+  for(let i=0;i<n;i++){const d=document.createElement("i");d.className="spark"+(i%3===0?" g":"");
+    const sz=2+Math.random()*3;d.style.cssText=`left:${Math.random()*100}%;width:${sz}px;height:${sz}px;--dx:${(Math.random()*80-40).toFixed(0)}px;animation-duration:${(9+Math.random()*12).toFixed(1)}s;animation-delay:${(-Math.random()*20).toFixed(1)}s`;
+    box.appendChild(d);}})();
+
+function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove("show"),2400);}
+async function copyText(t){
+  try{await navigator.clipboard.writeText(t);return true;}catch(e){
+    const ta=document.createElement("textarea");ta.value=t;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();
+    let ok=false;try{ok=document.execCommand("copy");}catch(_){}ta.remove();return ok;}
+}
+function ready(){
+  if(!role.value.trim()&&!hint){warn.textContent="↑ Напишіть хоча б, ким ви працюєте (питання 01)";role.focus();return false;}
+  return true;
+}
+$("#copy").onclick=async()=>{ if(!ready())return; toast(await copyText(build(false))?"Промпт скопійовано ✦":"Виділіть текст промпту і скопіюйте вручну"); };
+document.querySelectorAll("[data-open]").forEach(b=>b.onclick=async()=>{
+  if(!ready())return; const t=build(false);
+  const w=window.open(b.dataset.open+encodeURIComponent(t),"_blank","noopener");
+  await copyText(t); toast("Промпт скопійовано ✦ Відкриваємо чат…");
+});
+
+/* reveal + лічильники */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add("in");
+  e.target.querySelectorAll("[data-count]").forEach(countUp);io.unobserve(e.target);}),{threshold:.12});
+document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+function countUp(el){const to=+el.dataset.count,suf=el.dataset.suf||"";const t0=performance.now();
+  const step=n=>{const k=Math.min((n-t0)/900,1);el.innerHTML=Math.round(to*(1-Math.pow(1-k,3)))+suf;if(k<1)requestAnimationFrame(step);};
+  requestAnimationFrame(step);}
+document.querySelectorAll(".stat").forEach(s=>io.observe(s));
+</script>
+</body>
+</html>
