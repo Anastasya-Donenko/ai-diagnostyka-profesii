@@ -121,8 +121,8 @@ p,li{text-wrap:pretty}
 .bub.ai h4{margin:0 0 4px;font:700 13px Unbounded;color:var(--ink)}
 
 /* ---------- секції ---------- */
-section{padding:90px 0 0}
-.sec-h{max-width:760px;margin-bottom:38px}
+section{padding:64px 0 0}
+.sec-h{max-width:760px;margin-bottom:28px}
 .sec-h h2{font-size:clamp(26px,3.6vw,44px);text-transform:uppercase;font-weight:900;line-height:1.08;margin-top:18px}
 .sec-h p{color:var(--muted);font-size:17px;margin:16px 0 0}
 .how{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -172,7 +172,7 @@ input[type=text]:focus,textarea:focus{border-color:var(--teal);box-shadow:0 0 0 
 .get.gold h3{color:var(--gold2)}
 
 /* ---------- фінал ---------- */
-.final{margin:90px 0 60px;border-radius:32px;padding:56px 30px;text-align:center;position:relative;overflow:hidden;
+.final{margin:64px 0 48px;border-radius:32px;padding:56px 30px;text-align:center;position:relative;overflow:hidden;
   background:radial-gradient(ellipse at 50% 0%,rgba(242,193,78,.16),transparent 60%),linear-gradient(180deg,var(--panel2),var(--panel));
   border:1px solid rgba(242,193,78,.3);box-shadow:inset 0 1px 0 rgba(242,193,78,.35)}
 .final h2{font-size:clamp(24px,3.6vw,42px);text-transform:uppercase;font-weight:900;line-height:1.1;margin-top:18px}
@@ -188,8 +188,7 @@ input[type=text]:focus,textarea:focus{border-color:var(--teal);box-shadow:0 0 0 
 
 /* ноутбук / десктоп: перший екран вміщується у висоту вікна */
 @media (min-width:981px){
-  .hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;
-    padding:clamp(20px,4vh,56px) 0 clamp(18px,3.5vh,44px)}
+  .hero{padding:clamp(20px,4vh,56px) 0 clamp(18px,3.5vh,44px)}
   .hero-in{grid-template-columns:1.22fr .78fr;gap:clamp(28px,3vw,48px)}
   .hero h1{font-size:clamp(30px,min(4.1vw,7.4vh),58px);margin-top:clamp(10px,2.2vh,22px)}
   .hero h1 .bar{margin-top:clamp(10px,2.2vh,22px)}
@@ -213,7 +212,7 @@ input[type=text]:focus,textarea:focus{border-color:var(--teal);box-shadow:0 0 0 
   .hero{padding:44px 0 20px}
   .stats{grid-template-columns:repeat(2,1fr);margin-top:36px}
   .how,.gets{grid-template-columns:1fr}
-  section{padding-top:64px}
+  section{padding-top:52px}
   .card{padding:20px;border-radius:22px}
   .hero .cta .btn{width:100%}
   .acts .two{grid-template-columns:1fr}
@@ -355,8 +354,8 @@ input[type=text]:focus,textarea:focus{border-color:var(--teal);box-shadow:0 0 0 
 <!-- ================= ФІНАЛ ================= -->
 <div class="final rv">
   <span class="chip gold"><i></i>AI-MONEY CLUB</span>
-  <h2>AI показав, <span class="gold-t">що можливо.</span><br><span class="grad">У клубі покажемо, як</span></h2>
-  <p>Карта — це початок. Щоб AI справді звільнив години й приніс нові гроші, потрібні навички, готові шаблони й люди поруч, які вже пройшли цей шлях.</p>
+  <h2>Від карти — <span class="gold-t">до перших результатів</span><br><span class="grad">разом з AI-MONEY CLUB</span></h2>
+  <p>AI розписав, що можна змінити у вашій роботі. У клубі ви впровадите це крок за кроком: з готовими шаблонами, навчанням і підтримкою людей, які вже пройшли цей шлях.</p>
   <ul>
     <li><b>Щотижня</b> нові AI-інструменти, промпти й розбори під реальні задачі</li>
     <li><b>Покрокові навчання</b> навичкам, які AI назвав у вашій карті</li>
